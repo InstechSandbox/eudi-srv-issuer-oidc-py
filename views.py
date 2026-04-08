@@ -18,7 +18,7 @@ from flask import render_template
 from flask import request
 from flask import jsonify, abort
 from flask.helpers import make_response
-from flask.helpers import send_from_directory
+from flask.helpers import send_file, send_from_directory
 import urllib.parse
 from idpyoidc.message.oauth2 import ResponseMessage
 from idpyoidc.message.oidc import AccessTokenRequest
@@ -224,7 +224,11 @@ def verify_user():
 @oidc_op_views.route("/.well-known/<service>")
 def well_known(service):
     if service == "openid-configuration" or service == "oauth-authorization-server":
-        return send_from_directory(current_app.root_path, "openid-configuration.json")
+        config_path = os.getenv(
+            "AUTH_OPENID_CONFIGURATION_FILE",
+            os.path.join(current_app.root_path, "openid-configuration.json"),
+        )
+        return send_file(config_path)
     elif service == "webfinger":
         _endpoint = current_app.server.get_endpoint("discovery")
     else:

@@ -86,16 +86,15 @@ MYIP=<your-lan-ip> AUTH_PORT=5001 ISSUER_PORT=5002 ./patch_auth_server_local.sh
 
 What it does:
 
-+ rewrites [config.json](config.json) with the local auth-server port, domain, base URL, and redirect target
-+ rewrites [openid-configuration.json](openid-configuration.json) so discovery endpoints point at the local auth server
++ generates a local runtime `config.json` with the local auth-server port, domain, base URL, and redirect target
++ generates a local runtime `openid-configuration.json` so discovery endpoints point at the local auth server
 + ensures discovery metadata advertises wallet client attestation support for the local issuance flow
-+ updates [views.py](views.py) so the auth-server redirect goes to the local issuer backend
 
 Notes:
 
-+ this script modifies tracked files in place; review the resulting diff before committing
++ this script writes generated runtime files and does not modify tracked source files in place
 + it is intended for local development with a LAN IP and self-signed HTTPS, not production deployment
-+ after patching, start the authorization server with `./run.sh`
++ after patching, start the authorization server with `AUTH_CONFIG_FILE=<generated-config-path> AUTH_OPENID_CONFIGURATION_FILE=<generated-openid-config-path> ./run.sh`
 + if you need to generate a self-signed certificate for the LAN IP, use the provided `san.cnf` when creating `server.crt` and `server.key`
 
 

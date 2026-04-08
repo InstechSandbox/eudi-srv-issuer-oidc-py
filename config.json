@@ -312,6 +312,25 @@
       "template_dir": "templates",
       "token_handler_args": {
         "jwks_file": "private/token_jwks.json",
+        "jwks_def": {
+          "private_path": "private/token_jwks.json",
+          "read_only": false,
+          "key_defs": [
+            {
+              "type": "RSA",
+              "use": [
+                "sig"
+              ]
+            },
+            {
+              "type": "EC",
+              "crv": "P-256",
+              "use": [
+                "sig"
+              ]
+            }
+          ]
+        },
         "code": {
           "kwargs": {
             "lifetime": 600
