@@ -5,6 +5,7 @@
 - This repo owns the authorization and token server behaviour used by the local issuance reference flow.
 - Minimize auth-server changes unless verifier or issuance interoperability requires them.
 - When discovery metadata, token handling, wallet attestation, or local auth runtime behaviour changes, update `project-docs` in the same task.
+- Default Git flow in this workspace is local `wip/<stream>` commits promoted directly with `git push origin HEAD:main`; do not publish remote `wip/<stream>` branches unless explicitly requested.
 
 ## Local Checks
 
