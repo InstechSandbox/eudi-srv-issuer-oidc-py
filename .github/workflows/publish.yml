@@ -24,3 +24,13 @@ jobs:
       tags: |
         main
         ${{ github.sha }}
+
+  scaffold-deployment:
+    needs: publish
+    uses: InstechSandbox/.github/.github/workflows/reusable-deployment-scaffold.yml@b1b2daa559dbc981f6d0c6b42adb6fb115038081
+    with:
+      environment: test
+      component: issuer-auth-server
+      artifact-kind: container-image
+      artifact-ref: ${{ needs.publish.outputs.registry }}/test/eudi-srv-issuer-oidc-py@${{ needs.publish.outputs.image-digest }}
+      notes: Published image digest for test environment deployment consumption.
