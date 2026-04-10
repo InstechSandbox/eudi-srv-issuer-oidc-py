@@ -12,6 +12,10 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   publish:
     uses: InstechSandbox/.github/.github/workflows/reusable-ecr-publish.yml@b1b2daa559dbc981f6d0c6b42adb6fb115038081
