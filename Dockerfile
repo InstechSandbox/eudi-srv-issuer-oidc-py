@@ -16,8 +16,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Make run.sh executable
 RUN chmod +x run.sh
 
-# Expose Flask port
-EXPOSE 5000
+# Expose the auth-server listener port used by the tracked config contract
+EXPOSE 5001
 
 # Run your script
 CMD ["./run.sh"]

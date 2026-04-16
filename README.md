@@ -62,6 +62,8 @@ Click [here](install.md) for detailed installation instructions.
 
 For local LAN HTTPS development, see the helper-script workflow in [install.md](install.md#31-local-https-helper-script-for-lan-development).
 
+The default runtime contract is plain HTTP on port `5001`. Local self-signed HTTPS remains available through the helper flow or by providing `AUTH_TLS_CERT_FILE` and `AUTH_TLS_KEY_FILE` to [run.sh](run.sh).
+
 ## 2. Validation Smoke Test
 
 The repository includes [validate_local_build.sh](validate_local_build.sh) for local validation.

@@ -70,11 +70,13 @@ To install [Flask](https://flask.palletsprojects.com/en/2.3.x/), please follow t
 
     On the root directory of the clone repository, insert one of the following command lines to run the EUDIW Authorization Server.
 
-    + Linux/macOS/Windows (on <http://127.0.0.1:5000> or <http://localhost:5000>)
+    + Linux/macOS/Windows (on <http://127.0.0.1:5001> or <http://localhost:5001>)
 
     ```
     ./run.sh
     ```
+
+    By default the wrapper starts plain HTTP on the configured listener port. If `server.crt` and `server.key` are present, or if you set `AUTH_TLS_CERT_FILE` and `AUTH_TLS_KEY_FILE`, the wrapper enables HTTPS instead.
 
 ### 3.1 Local HTTPS helper script for LAN development
 
@@ -124,9 +126,9 @@ server {
 
 # Provider backend
     location / {
-        # The proxy_pass directive assumes that your local EUDIW Issuer is running at http://127.0.0.1:5000/. 
+        # The proxy_pass directive assumes that your local EUDIW Issuer is running at http://127.0.0.1:5001/. 
         # If not, please adjust it accordingly.
-        proxy_pass                              http://127.0.0.1:5000/;
+        proxy_pass                              http://127.0.0.1:5001/;
         proxy_set_header Host                   $http_host;
         proxy_set_header X-Real-IP              $remote_addr;
         proxy_set_header X-Forwarded-For        $proxy_add_x_forwarded_for;
@@ -187,6 +189,8 @@ This guide provides step-by-step instructions for deploying the **EUDIW Issuer A
     ```
     docker compose up -d
     ```
+
+    The default compose mapping now publishes the service as `http://127.0.0.1:6005` and routes that to the container listener on port `5001`.
 
 6. Check Logs
 
