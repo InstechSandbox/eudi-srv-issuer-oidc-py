@@ -44,6 +44,9 @@ kill_listener_on_port() {
 
 export REPO_DIR="$repo_dir"
 auth_smoke_port=${AUTH_SMOKE_PORT:-5001}
+auth_log_file=${AUTH_LOG_FILE:-/tmp/oidc_log_dev/logs.log}
+
+mkdir -p "$(dirname "$auth_log_file")"
 
 if ! python - <<'PY'
 import os
