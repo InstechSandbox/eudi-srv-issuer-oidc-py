@@ -61,6 +61,8 @@ def main() -> None:
         "AUTH_TRUSTED_ATTESTERS_PATH",
         str((repo_dir / "trusted_attesters").resolve()),
     )
+    auth_tls_cert_file = os.getenv("AUTH_TLS_CERT_FILE", "")
+    auth_tls_key_file = os.getenv("AUTH_TLS_KEY_FILE", "")
 
     config["port"] = port
     config["domain"] = domain
@@ -77,6 +79,13 @@ def main() -> None:
     config["op"]["server_info"]["endpoint"]["pushed_authorization"]["kwargs"]["trusted_attesters_path"] = trusted_attesters_path
     config["webserver"]["port"] = port
     config["webserver"]["domain"] = "{domain}"
+
+    if auth_tls_cert_file and auth_tls_key_file:
+        config["webserver"]["server_cert"] = auth_tls_cert_file
+        config["webserver"]["server_key"] = auth_tls_key_file
+    else:
+        config["webserver"].pop("server_cert", None)
+        config["webserver"].pop("server_key", None)
 
     runtime_dir.mkdir(parents=True, exist_ok=True)
     Path(auth_log_file).parent.mkdir(parents=True, exist_ok=True)
